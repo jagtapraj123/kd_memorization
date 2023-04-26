@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch_subsampled
+
+python train_resnet50.py > runlog_teacher_resnet50_0-0.01_sub_5_conn_sig.log

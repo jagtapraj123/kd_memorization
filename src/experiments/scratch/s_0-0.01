@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch
+
+python train_resnet18.py > runlog_scratch_resnet18_0-0.01_5.log

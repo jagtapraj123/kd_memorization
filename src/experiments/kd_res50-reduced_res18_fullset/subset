@@ -1,0 +1,27 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res50-reduced_res18_fullset
+
+nvidia-smi
+lscpu
+
+# scratch
+python subset_selector.py &
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+wait < <(jobs -p)
+

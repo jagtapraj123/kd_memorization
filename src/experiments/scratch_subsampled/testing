@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch_subsampled
+
+python testing.py > runlog_kd_resnet18_resnet50_0-0.01_5_conn_bce_0-0.01_test2.log

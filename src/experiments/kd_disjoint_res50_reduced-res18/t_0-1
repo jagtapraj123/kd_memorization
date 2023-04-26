@@ -1,0 +1,47 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_disjoint_res50_reduced-res18
+
+nvidia-smi
+lscpu
+
+# python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_1" "../../../dataset/disjoint_sets/subset_0-1_1.csv" "../../saved_models/kd_disjoint_sets/teacher/1/" --cuda-num 0 --num-workers 8 > runlog_scratch_res50_disjoint_sets_0-1_1.log
+
+python train_resnet18.py "train_kd_res50_0-1_S1_res18_disjoint_sets_0-1_S1_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_1.csv" "../../saved_models/kd_disjoint_sets/0/student_res18/S1_S1/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 1 --soft_temp 8 > runlog_kd_res50_0-1_S1_res18_disjoint_sets_0-1_S1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1_res18_disjoint_sets_0-1_S2_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_2.csv" "../../saved_models/kd_disjoint_sets/0/student_res18/S1_S2/" "$(< model_save_path.txt)" --cuda-num 1 --num-workers 4 --reduce 1 --soft_temp 8 > runlog_kd_res50_0-1_S1_res18_disjoint_sets_0-1_S2_soft-temp_8.log &
+
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by2_res18_disjoint_sets_0-1_S1_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_1.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by2_res18/S1_S1/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 2 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by2_res18_disjoint_sets_0-1_S1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by2_res18_disjoint_sets_0-1_S2_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_2.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by2_res18/S1_S2/" "$(< model_save_path.txt)" --cuda-num 1 --num-workers 4 --reduce 2 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by2_res18_disjoint_sets_0-1_S2_soft-temp_8.log &
+
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by4_res18_disjoint_sets_0-1_S1_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_1.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by4_res18/S1_S1/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 4 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by4_res18_disjoint_sets_0-1_S1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by4_res18_disjoint_sets_0-1_S2_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_2.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by4_res18/S1_S2/" "$(< model_save_path.txt)" --cuda-num 1 --num-workers 4 --reduce 4 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by4_res18_disjoint_sets_0-1_S2_soft-temp_8.log &
+
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by8_res18_disjoint_sets_0-1_S1_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_1.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by8_res18/S1_S1/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by8_res18_disjoint_sets_0-1_S1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-reduced_by8_res18_disjoint_sets_0-1_S2_soft-temp_8" "../../../dataset/disjoint_sets/0/subset_0-1_2.csv" "../../saved_models/kd_disjoint_sets/0/student_reduced_by8_res18/S1_S2/" "$(< model_save_path.txt)" --cuda-num 1 --num-workers 4 --reduce 8 --soft_temp 8 > runlog_kd_res50_0-1_S1-reduced_by8_res18_disjoint_sets_0-1_S2_soft-temp_8.log &
+
+sleep 30
+nvidia-smi
+
+jobs -p
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+

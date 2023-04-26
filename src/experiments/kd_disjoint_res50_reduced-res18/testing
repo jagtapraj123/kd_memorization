@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_disjoint_res50_reduced-res18
+
+python testing.py < model_paths_by4.txt > runlog_kd_res18_by4_2_all_test_set_0-1.log
+# python testing.py < model_save_path.txt > runlog_teacher_all_train_set_0.8-1.log

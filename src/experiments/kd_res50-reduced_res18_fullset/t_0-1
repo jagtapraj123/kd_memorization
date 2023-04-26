@@ -1,0 +1,55 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res50-reduced_res18_fullset
+
+nvidia-smi
+lscpu
+
+# scratch
+# python train_resnet50.py "train_scratch_res50_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/teacher/res50/" --cuda-num 0 --num-workers 8 > runlog_scratch_res50_0-1.log &
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# wait < <(jobs -p)
+
+# KD
+python train_resnet18.py "train_kd_res50_0-1-res18_0-1_soft-temp_8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/student/res18/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 > runlog_kd_res50_0-1-res18_0-1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_reduced_by2_0-1_soft-temp_8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/student/res18_reduced_by2/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 2 > runlog_kd_res50_0-1-res18_reduced_by2_0-1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_reduced_by4_0-1_soft-temp_8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/student/res18_reduced_by4/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_kd_res50_0-1-res18_reduced_by4_0-1_soft-temp_8.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_reduced_by8_0-1_soft-temp_8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/student/res18_reduced_by8/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > runlog_kd_res50_0-1-res18_reduced_by8_0-1_soft-temp_8.log &
+
+# python train_resnet18.py "train_kd_res50_0-1_1-res18_disjoint_sets_0-1_2" "../../../dataset/disjoint_sets/subset_0-1_2.csv" "../../saved_models/kd_disjoint_sets/student/1_2/" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 6 > runlog_kd_res50_0-1_1-res18_disjoint_sets_0-1_2.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+

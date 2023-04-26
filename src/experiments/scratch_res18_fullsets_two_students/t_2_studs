@@ -1,0 +1,54 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch_res18_fullsets_two_students
+
+nvidia-smi
+lscpu
+
+# python train_resnet18.py "train_scratch_res18_0-0.1" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "temp" --cuda-num 0 --num-workers 16 --reduce 1 > runlog_scratch_res18_0-0.1.log &
+
+# python train_resnet18.py "train_scratch_res18_0.8-1" "../../../dataset/high_mem/subset_0.8-1.csv" "temp" --cuda-num 0 --num-workers 16 --reduce 1 > runlog_scratch_res18_0.8-1.log &
+
+# Finding Grads per sample
+# python train_resnet18.py "train_scratch_res18_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 1 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_0-1_dropped_0.2_two_students.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by2_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 2 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_reduced_by2_0-1_dropped_0.2_two_students.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by4_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 4 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_reduced_by4_0-1_dropped_0.2_two_students.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.1 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students.log &
+
+python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students.log &
+
+python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students.log &
+
+
+# # scratch
+# python train_resnet18.py "train_scratch_res18_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/teacher/res18/" --cuda-num 0 --num-workers 4 --reduce 1 > runlog_scratch_res18_0-1.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by2_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/teacher/res18_reduced_by2/" --cuda-num 0 --num-workers 4 --reduce 2 > runlog_scratch_res18_reduced_by2_0-1.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by4_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/teacher/res18_reduced_by4/" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_reduced_by4_0-1.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/kd_full_sets_0-1/teacher/res18_reduced_by8/" --cuda-num 0 --num-workers 4 --reduce 8 > runlog_scratch_res18_reduced_by8_0-1.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)

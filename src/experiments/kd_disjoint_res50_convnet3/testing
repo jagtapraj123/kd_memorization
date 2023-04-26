@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_disjoint_res50_convnet3
+
+python testing.py < model_paths.txt > runlog_kd_all_test_set.log

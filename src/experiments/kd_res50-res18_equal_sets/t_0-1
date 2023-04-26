@@ -1,0 +1,36 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res50-res18_equal_sets
+
+nvidia-smi
+lscpu
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-0.1_2" "../../../dataset/scratch_equal_sets/subset_0-0.1.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 0 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-0.1_2.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-0.2_2" "../../../dataset/scratch_equal_sets/subset_0-0.2.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 0 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-0.2_2.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-0.4_2" "../../../dataset/scratch_equal_sets/subset_0-0.4.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 0 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-0.4_2.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-0.6_2" "../../../dataset/scratch_equal_sets/subset_0-0.6.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 1 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-0.6_2.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-0.8_2" "../../../dataset/scratch_equal_sets/subset_0-0.8.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 1 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-0.8_2.log &
+
+python train_resnet18.py "train_kd_res50_0-1-res18_equal_sets_0-1_2" "../../../dataset/scratch_equal_sets/subset_0-1.csv" "../../saved_models/kd_res50_0-1-res18_equal_sets/" "../../saved_models/scratch_res50_equal_sets/train_scratch_res50_equal_sets_0-1_20230223-202711/checkpoints/200/model.pth" --cuda-num 1 --num-workers 4 > runlog_kd_res50_0-1-res18_equal_sets_0-1_2.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+

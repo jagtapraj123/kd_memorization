@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch_res50_equal_sets
+
+lscpu
+nvidia-smi
+
+# python train_resnet50.py "train_scratch_res50_equal_sets_0-0.1" "../../../dataset/scratch_equal_sets/subset_0-0.1.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 2 > runlog_scratch_res50_equal_sets_0-0.1.log
+
+# python train_resnet50.py "train_scratch_res50_equal_sets_0-0.2" "../../../dataset/scratch_equal_sets/subset_0-0.2.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 2 > runlog_scratch_res50_equal_sets_0-0.2.log
+
+# python train_resnet50.py "train_scratch_res50_equal_sets_0-0.4" "../../../dataset/scratch_equal_sets/subset_0-0.4.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 2 > runlog_scratch_res50_equal_sets_0-0.4.log
+
+# python train_resnet50.py "train_scratch_res50_equal_sets_0-0.6" "../../../dataset/scratch_equal_sets/subset_0-0.6.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 2 > runlog_scratch_res50_equal_sets_0-0.6.log 
+
+# python train_resnet50.py "train_scratch_res50_equal_sets_0-0.8" "../../../dataset/scratch_equal_sets/subset_0-0.8.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 4 > runlog_scratch_res50_equal_sets_0-0.8.log
+
+python train_resnet50.py "train_scratch_res50_equal_sets_0-1" "../../../dataset/scratch_equal_sets/subset_0-1.csv" "../../saved_models/scratch_res50_equal_sets/" --cuda-num 0 --num-workers 4 > runlog_scratch_res50_equal_sets_0-1.log
+
+# sleep 30
+# nvidia-smi
+
+# sleep 30
+# nvidia-smi
+
+# sleep 60
+# nvidia-smi
+
+# sleep 60
+# nvidia-smi
+
+# sleep 60
+# nvidia-smi

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/scratch_res18_fullsets
+
+nvidia-smi
+lscpu
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-0.1" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 0 > runlog_scratch_res18_fullsets_0-0.1.log &
+
+sleep 30
+nvidia-smi
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-0.2" "../../../dataset/scratch_fullsets/subset_0-0.2.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 1 > runlog_scratch_res18_fullsets_0-0.2.log &
+
+sleep 30
+nvidia-smi
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-0.4" "../../../dataset/scratch_fullsets/subset_0-0.4.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 2 > runlog_scratch_res18_fullsets_0-0.4.log &
+
+sleep 30
+nvidia-smi
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-0.6" "../../../dataset/scratch_fullsets/subset_0-0.6.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 2 > runlog_scratch_res18_fullsets_0-0.6.log &
+
+sleep 30
+nvidia-smi
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-0.8" "../../../dataset/scratch_fullsets/subset_0-0.8.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 1 > runlog_scratch_res18_fullsets_0-0.8.log &
+
+sleep 30
+nvidia-smi
+
+python train_resnet18.py "train_scratch_res18_fullsets_0-1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "../../saved_models/scratch_res18_fullsets/" --cuda-num 0 > runlog_scratch_res18_fullsets_0-1.log &
+
+wait < <(jobs -p)

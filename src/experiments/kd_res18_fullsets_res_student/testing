@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res18_fullsets_res_student
+
+# python testing.py < train_kd_res18_reduced_by8_res_student_0-1_dropped_0.5_scaling_save_path.txt > test_kd_res18_by8_dropped_0.5_all_train_set_0.8-1.log
+# python testing.py < model_save_path.txt > runlog_teacher_all_train_set_0.8-1.log
+
+# python testing.py "train_kd_res18_reduced_by8_res_student_0-1_dropped_0.1_scaling" "train_set_0-1" "$(< train_kd_res18_reduced_by8_res_student_0-1_dropped_0.1_scaling_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_train_kd_res18_reduced_by8_res_student_0-1_dropped_0.1_scaling.log
+
+python testing.py "train_kd_res18_reduced_by8_res_student_0-1_dropped_0.1_scaling" "train_set_0-1" "$(< train_kd_res18_reduced_by8_res_student_0-1_dropped_0.1_scaling_save_path.txt)" --subset_csv_path "../../../dataset/high_mem/subset_0.8-1.csv" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_train_kd_res18_reduced_by8_res_student_0.8-1_dropped_0.1_scaling.log

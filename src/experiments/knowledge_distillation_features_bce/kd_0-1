@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/knowledge_distillation_features_bce
+
+python train_resnet18.py > runlog_kd_resnet18_resnet50_0-0.01_5_conn_bce_0-0.01.log

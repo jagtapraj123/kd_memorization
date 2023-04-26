@@ -1,0 +1,128 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_disjoint
+
+nvidia-smi
+lscpu
+
+python subset_gen.py "../../../dataset/disjoint_sets/1" --seed 0 > runlog_scratch_res50_disjoint_sets_0-1_1_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/2" --seed 1 > runlog_scratch_res50_disjoint_sets_0-1_2_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/3" --seed 2 > runlog_scratch_res50_disjoint_sets_0-1_3_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/4" --seed 3 > runlog_scratch_res50_disjoint_sets_0-1_4_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/5" --seed 4 > runlog_scratch_res50_disjoint_sets_0-1_5_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/6" --seed 5 > runlog_scratch_res50_disjoint_sets_0-1_6_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/7" --seed 6 > runlog_scratch_res50_disjoint_sets_0-1_7_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/8" --seed 7 > runlog_scratch_res50_disjoint_sets_0-1_8_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/9" --seed 8 > runlog_scratch_res50_disjoint_sets_0-1_9_S1.log &
+python subset_gen.py "../../../dataset/disjoint_sets/10" --seed 9 > runlog_scratch_res50_disjoint_sets_0-1_10_S1.log &
+
+wait < <(jobs -p)
+
+# teacher naming format: train_scratch_res50_disjoint_sets_{min_thresh}-{max_thresh}_{exp_num}_{S1/S2}
+# saving dir format: ../../saved_models/kd_disjoint_sets/{exp_num}/teacher/{S1/S2}/
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_1_S1" "../../../dataset/disjoint_sets/1/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/1/teacher/S1/" --cuda-num 0 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_1_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_2_S1" "../../../dataset/disjoint_sets/2/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/2/teacher/S1/" --cuda-num 1 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_2_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_3_S1" "../../../dataset/disjoint_sets/3/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/3/teacher/S1/" --cuda-num 2 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_3_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_4_S1" "../../../dataset/disjoint_sets/4/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/4/teacher/S1/" --cuda-num 3 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_4_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_5_S1" "../../../dataset/disjoint_sets/5/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/5/teacher/S1/" --cuda-num 0 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_5_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_6_S1" "../../../dataset/disjoint_sets/6/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/6/teacher/S1/" --cuda-num 1 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_6_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_7_S1" "../../../dataset/disjoint_sets/7/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/7/teacher/S1/" --cuda-num 2 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_7_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_8_S1" "../../../dataset/disjoint_sets/8/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/8/teacher/S1/" --cuda-num 3 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_8_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_9_S1" "../../../dataset/disjoint_sets/9/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/9/teacher/S1/" --cuda-num 0 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_9_S1.log &
+
+python train_resnet50.py "train_scratch_res50_disjoint_sets_0-1_10_S1" "../../../dataset/disjoint_sets/10/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/10/teacher/S1/" --cuda-num 1 --num-workers 4 >> runlog_scratch_res50_disjoint_sets_0-1_10_S1.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+
+# student naming format: train_kd_res50_{min_thresh}-{max_thresh}_{teacher-S1/S2}-res18_disjoint_sets_{min_thresh}-{max_thresh}_{exp_num}_{distill-S1/S2}
+# student dir format: ../../saved_models/kd_disjoint_sets/{exp_num}/student/{teacher-S1/S2}_{distill-S1/S2}/
+
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_1_S1" "../../../dataset/disjoint_sets/1/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/1/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_1_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_1_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_1_S2" "../../../dataset/disjoint_sets/1/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/1/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_1_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_1_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_2_S1" "../../../dataset/disjoint_sets/2/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/2/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_2_S1_save_path.txt)" --cuda-num 2 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_2_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_2_S2" "../../../dataset/disjoint_sets/2/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/2/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_2_S1_save_path.txt)" --cuda-num 3 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_2_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_3_S1" "../../../dataset/disjoint_sets/3/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/3/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_3_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_3_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_3_S2" "../../../dataset/disjoint_sets/3/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/3/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_3_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_3_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_4_S1" "../../../dataset/disjoint_sets/4/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/4/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_4_S1_save_path.txt)" --cuda-num 2 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_4_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_4_S2" "../../../dataset/disjoint_sets/4/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/4/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_4_S1_save_path.txt)" --cuda-num 3 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_4_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_5_S1" "../../../dataset/disjoint_sets/5/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/5/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_5_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_5_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_5_S2" "../../../dataset/disjoint_sets/5/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/5/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_5_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_5_S2.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_6_S1" "../../../dataset/disjoint_sets/6/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/6/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_6_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_6_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_6_S2" "../../../dataset/disjoint_sets/6/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/6/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_6_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_6_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_7_S1" "../../../dataset/disjoint_sets/7/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/7/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_7_S1_save_path.txt)" --cuda-num 2 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_7_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_7_S2" "../../../dataset/disjoint_sets/7/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/7/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_7_S1_save_path.txt)" --cuda-num 3 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_7_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_8_S1" "../../../dataset/disjoint_sets/8/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/8/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_8_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_8_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_8_S2" "../../../dataset/disjoint_sets/8/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/8/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_8_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_8_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_9_S1" "../../../dataset/disjoint_sets/9/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/9/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_9_S1_save_path.txt)" --cuda-num 2 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_9_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_9_S2" "../../../dataset/disjoint_sets/9/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/9/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_9_S1_save_path.txt)" --cuda-num 3 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_9_S2.log &
+
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_10_S1" "../../../dataset/disjoint_sets/10/subset_0-1_S1.csv" "../../saved_models/kd_disjoint_sets/10/student/S1_S1/" "$(< train_scratch_res50_disjoint_sets_0-1_10_S1_save_path.txt)" --cuda-num 0 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_10_S1.log &
+python train_resnet18.py "train_kd_res50_0-1_S1-res18_disjoint_sets_0-1_10_S2" "../../../dataset/disjoint_sets/10/subset_0-1_S2.csv" "../../saved_models/kd_disjoint_sets/10/student/S1_S2/" "$(< train_scratch_res50_disjoint_sets_0-1_10_S1_save_path.txt)" --cuda-num 1 --num-workers 2 > runlog_kd_res50_0-1_S1-res18_disjoint_sets_0-1_10_S2.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
+
