@@ -1,0 +1,62 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res18_rep_sum
+
+nvidia-smi
+lscpu
+
+# python train_resnet18.py "train_scratch_res18_0-0.1" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "temp" --cuda-num 0 --num-workers 16 --reduce 1 > runlog_scratch_res18_0-0.1.log &
+
+# python train_resnet18.py "train_scratch_res18_0.8-1" "../../../dataset/high_mem/subset_0.8-1.csv" "temp" --cuda-num 0 --num-workers 16 --reduce 1 > runlog_scratch_res18_0.8-1.log &
+
+# Fullset Teachers
+# python train_resnet18.py "train_scratch_res18_0-1_m1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m1.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m2.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m3" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m3.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m4" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m4.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m5" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m5.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m6" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m6.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m7" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m7.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m8.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m9" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m9.log &
+# python train_resnet18.py "train_scratch_res18_0-1_m10" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_0-1_red4_m10.log &
+
+# Fullset S2
+# python train_resnet18.py "train_scratch_res18_s2_full_0-1_red4_m1" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_red4_full_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_full_0-1_red4_m1.log &
+# python train_resnet18.py "train_scratch_res18_s2_full_0-1_red4_m2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_red4_full_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_full_0-1_red4_m2.log &
+# python train_resnet18.py "train_scratch_res18_s2_full_0-1_red4_m3" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_red4_full_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_full_0-1_red4_m3.log &
+# python train_resnet18.py "train_scratch_res18_s2_full_0-1_red4_m4" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_red4_full_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_full_0-1_red4_m4.log &
+# python train_resnet18.py "train_scratch_res18_s2_full_0-1_red4_m5" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_red4_full_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_full_0-1_red4_m5.log &
+
+# Low Mem S2
+# python train_resnet18.py "train_scratch_res18_s2_lowmem_0-0.1_red4_m1" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_lowmem_0-0.1_red8_red4_m1.log &
+# python train_resnet18.py "train_scratch_res18_s2_lowmem_0-0.1_red4_m2" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_lowmem_0-0.1_red8_red4_m2.log &
+# python train_resnet18.py "train_scratch_res18_s2_lowmem_0-0.1_red4_m3" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_lowmem_0-0.1_red8_red4_m3.log &
+# python train_resnet18.py "train_scratch_res18_s2_lowmem_0-0.1_red4_m4" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_lowmem_0-0.1_red8_red4_m4.log &
+# python train_resnet18.py "train_scratch_res18_s2_lowmem_0-0.1_red4_m5" "../../../dataset/scratch_fullsets/subset_0-0.1.csv" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce 4 > runlog_scratch_res18_s2_lowmem_0-0.1_red8_red4_m5.log &
+
+
+# Train S1
+python train_s1.py "train_scratch_res18_s1_0-1_red8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s1_save" "res18_save" --cuda-num 0 --num-workers 4 --reduce_t 4 --reduce_s 8 --soft_temp 8 > runlog_kd_res18_s1_0-1_red8.log &
+python train_s1.py "train_scratch_res18_s1_0-1_red4" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s1_save" "res18_save" --cuda-num 0 --num-workers 4 --reduce_t 4 --reduce_s 4 --soft_temp 8 > runlog_kd_res18_s1_0-1_red4.log &
+
+# Train S2
+# python train_s2.py "train_kd_red4_res18_s2_0-1_red8" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_save" "res18_s2_red4_full_save" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce_t 4 --reduce_s 8 --soft_temp 8 > runlog_kd_red4_res18_s2_0-1_red8.log &
+# python train_s2.py "train_kd_red4_res18_s2_0-1_red4" "../../../dataset/scratch_fullsets/subset_0-1.csv" "res18_s2_save" "res18_s2_red4_full_save" "res18_s2_red4_lowmem_save" --cuda-num 0 --num-workers 4 --reduce_t 4 --reduce_s 4 --soft_temp 8 > runlog_kd_red4_res18_s2_0-1_red4.log &
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)

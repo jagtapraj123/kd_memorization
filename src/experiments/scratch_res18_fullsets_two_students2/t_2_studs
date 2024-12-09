@@ -18,13 +18,23 @@ lscpu
 
 # python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.1 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students.log &
 
-python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students.log &
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students.log &
 
-python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students.log &
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students.log &
 
 # python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students.log &
 
 # python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 > runlog_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students.log &
+
+# S2
+python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 --s1_path "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students_save_path.txt)" --bitvector_path logs/logfiles/train_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students_s1_20230426-145543/samples_bitvector.pkl > runlog_scratch_res18_reduced_by8_0-1_dropped_0.2_two_students_s2.log &
+
+python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 --s1_path "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students_save_path.txt)" --bitvector_path logs/logfiles/train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students_s1_20230426-145543//samples_bitvector.pkl > runlog_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students_s2.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 --s1_path "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students_save_path.txt)" --bitvector_path logs/logfiles/train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students_s1_20230426-145533/samples_bitvector.pkl > runlog_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students_s2.log &
+
+# python train_resnet18.py "train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 --s1_path "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students_save_path.txt)" --bitvector_path logs/logfiles/train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students_s1_20230426-145532/samples_bitvector.pkl > runlog_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students_s2.log &
+
 
 
 # # scratch

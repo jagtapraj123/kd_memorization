@@ -251,7 +251,17 @@ if __name__ == "__main__":
 
     model_s2.load_state_dict(model_s1.state_dict())
 
-    samples_bitvector[:] = samples_bitvector == 0
+    for params in model_s2.parameters():
+        params.requires_grad = False
+
+    model_s2.fc.reset_parameters()
+
+    for params in model_s2.fc.parameters():
+        params.requires_grad = True
+    
+
+    # samples_bitvector[:] = samples_bitvector == 0
+    samples_bitvector[:] = True
 
     trainer = PipelineS2(
         name=model_name+"_s2",

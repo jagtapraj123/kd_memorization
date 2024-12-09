@@ -56,3 +56,7 @@ def make_disjoint(orig_set: list, seed: int = random.randint(0, sys.maxsize)):
     set2 = sorted(set2)
 
     return set1, set2
+
+from utils.cifar_subset_creater import save_subsets
+import numpy as np
+save_subsets("path", np.load("path to npz"), [0.1, 0.5, 0.9], False)

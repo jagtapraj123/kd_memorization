@@ -19,7 +19,7 @@ from utils.constants import (
 )
 from utils.constants import SCORE_FUNCTIONS_CLASSIFICATION
 
-from pipelines.two_students_rep_sum_classification_pipeline import PipelineS1, PipelineS2
+from pipelines.two_student_avg_classification_pipeline import PipelineS1, PipelineS2
 
 import argparse
 from functools import partial
@@ -56,19 +56,17 @@ if __name__ == "__main__":
         help="Number of workers for dataloader",
     )
     parser.add_argument(
-        "--reduce_s1",
-        dest="dim_scale_factor_s1",
+        "--reduce_t",
+        dest="dim_scale_factor_t",
         type=int,
-        help="Scale down model s1 dimenstions byt factor",
+        help="Scale down teacher model dimenstions byt factor",
     )
     parser.add_argument(
-        "--reduce_s2",
-        dest="dim_scale_factor_s2",
+        "--reduce_s",
+        dest="dim_scale_factor_s",
         type=int,
         help="Scale down student model dimenstions byt factor",
     )
-    parser.add_argument("--bitvector_path", dest="bitvector_path", default=None, type=str, help="Path to saved S1 model's samples bitvector")
-
     
     args = parser.parse_args()
 
@@ -79,10 +77,9 @@ if __name__ == "__main__":
     soft_temp = args.soft_temp
     cuda_num = args.cuda_num
     num_workers = args.num_workers
-    dim_scale_factor_s1 = args.dim_scale_factor_s1
-    dim_scale_factor_s2 = args.dim_scale_factor_s2
+    dim_scale_factor_t = args.dim_scale_factor_t
+    dim_scale_factor_s = args.dim_scale_factor_s
     s1_path = args.s1_path
-    bitvector_path = args.bitvector_path
     
     # model_name = "teacher_resnet50_0-0.1_sub_set3_6_conn_sig"
     print("Name: {}".format(model_name))
@@ -91,59 +88,62 @@ if __name__ == "__main__":
     print("Teacher Model: {}".format(teacher_path))
     print("S1 Model: {}".format(s1_path))
     print("Softmax Temperature: {}".format(soft_temp), flush=True)
-    print("Cuda Num: {}".format(cuda_num), flush=True)
-    print("Dimension Reducing (S1): {}".format(dim_scale_factor_s1), flush=True)
-    print("Dimension Reducing (Student): {}".format(dim_scale_factor_s2), flush=True)
-
+    print("Dimension Reducing (Teacher): {}".format(dim_scale_factor_t), flush=True)
+    print("Dimension Reducing (Student): {}".format(dim_scale_factor_s), flush=True)
+    
     # data = pd.read_csv(os.path.join(PATH_PREFIX, DATASET_TRAIN_DATA_FILE))
     # subset_file = "../../../dataset/scratch_res50_fullsets/subset_0-0.1.csv"
     # subset_file = pd.read_csv()
 
     preprocessor = Preprocessor((32, 32))
 
-    
-    teacher_model = ResNet.resnet18(
-        num_classes=100,
-        include_top=True,
-        final_activation=True,
-        inplanes=64,
-        temperature=soft_temp,
-    )
-    print(teacher_model)
-    summary(teacher_model, (3, 32, 32), device="cpu")
+    teacher_models = []
+    teacher_paths = os.listdir(teacher_path)
+    for i in range(len(teacher_paths)):
+        teacher_model = ResNet.resnet18(
+            num_classes=100,
+            include_top=True,
+            final_activation=True,
+            inplanes=64 // dim_scale_factor_t,
+            temperature=soft_temp,
+        )
+        print(teacher_model)
+        summary(teacher_model, (3, 32, 32), device="cpu")
 
-    teacher_model.load_state_dict(torch.load(teacher_path)["model_state_dict"])
+        teacher_model.load_state_dict(torch.load(os.path.join(teacher_path, teacher_paths[i], "checkpoints", "200", "model.pth"))["model_state_dict"])
 
-    for params in teacher_model.parameters():
-        params.requires_grad = False
+        for params in teacher_model.parameters():
+            params.requires_grad = False
 
-    teacher_model.eval()
+        teacher_model.eval()
+        teacher_models.append(teacher_model)
 
-    
-    model_s1 = ResNet.resnet18(
-        num_classes=100,
-        include_top=True,
-        final_activation=True,
-        inplanes=64 // dim_scale_factor_s1,
-        temperature=soft_temp,
-    )
-    print(model_s1)
-    summary(model_s1, (3, 32, 32), device="cpu")
+    model_s1s = []
+    s1_paths = os.listdir(s1_path)
+    for i in range(len(s1_paths)):
+        model_s1 = ResNet.resnet18(
+            num_classes=100,
+            include_top=True,
+            final_activation=True,
+            inplanes=64 // dim_scale_factor_t,
+            temperature=soft_temp,
+        )
+        print(model_s1)
+        summary(model_s1, (3, 32, 32), device="cpu")
 
-    print("model S1 loaded from {}".format(s1_path))
-    model_s1.load_state_dict(torch.load(s1_path)["model_state_dict"])
+        model_s1.load_state_dict(torch.load(os.path.join(s1_path, s1_paths[i], "checkpoints", "200", "model.pth"))["model_state_dict"])
 
-    for params in model_s1.parameters():
-        params.requires_grad = False
+        for params in model_s1.parameters():
+            params.requires_grad = False
 
-    model_s1.eval()
-
+        model_s1.eval()
+        model_s1s.append(model_s1)
 
     model_s2 = ResNet.resnet18(
         num_classes=100,
         include_top=True,
         final_activation=True,
-        inplanes=64 // dim_scale_factor_s2,
+        inplanes=64 // dim_scale_factor_s,
     )
     print(model_s2)
     summary(model_s2, (3, 32, 32), device="cpu")
@@ -252,6 +252,90 @@ if __name__ == "__main__":
 
     print(score_sets)
 
+    # if s1_path is None:
+    #     trainer_s1 = PipelineS1(
+    #         name=model_name,
+    #         model=model_s1,
+    #         batch_size=256,
+    #         workers=num_workers,
+    #         train_set=train_set,
+    #         test_sets=score_sets,
+    #         preprocessor=preprocessor,
+    #         log_files_path="logs/fit/",
+    #         teacher_model=teacher_model,
+    #         cuda_num=cuda_num,
+    #     )
+
+    #     num_epochs = 200
+    #     lr = 0.4
+    #     # step_size_func = lambda e: 1 / math.sqrt(1 + e)
+    #     step_size_func = (
+    #         lambda e: ((e - num_epochs * 0.15) / (num_epochs * 0.15) + 1)
+    #         if e <= num_epochs * 0.15
+    #         else (num_epochs - e) / (num_epochs * 0.85)
+    #     )
+
+    #     loss_func_with_grad = torch.nn.KLDivLoss(reduction="batchmean", log_target=True)
+    #     loss_func = partial(
+    #         torch.nn.functional.kl_div, reduction="batchmean", log_target=True
+    #     )
+
+    #     (
+    #         training_log,
+    #         validation_log,
+    #         grad_log1,
+    #         grad_log2,
+    #         samples_bitvector,
+    #     ) = trainer_s1.train(
+    #         num_epochs=num_epochs,
+    #         teacher_weightage=1,
+    #         score_on_gnd_truth=True,
+    #         lr=lr,
+    #         score_functions=SCORE_FUNCTIONS_CLASSIFICATION,
+    #         step_size_func=step_size_func,
+    #         loss_func_with_grad=loss_func_with_grad,
+    #         loss_func=loss_func,
+    #         # save_checkpoints_epoch=25,
+    #         # save_checkpoints_path="../../saved_models/",
+    #         validation_score_epoch=5,
+    #         drop_percentage=drop_factor,
+    #         drop_epoch=drop_epoch,
+    #     )
+
+    #     save_path = trainer_s1.save(save_dir, num_epochs)
+
+    #     with open("{}_save_path.txt".format(model_name), "w") as f:
+    #         f.write(save_path)
+
+    #     os.makedirs(os.path.join("logs/logfiles", trainer_s1.name))
+    #     with open(
+    #         os.path.join("logs/logfiles", trainer_s1.name, "training_log.pkl"), "wb"
+    #     ) as f:
+    #         pickle.dump(training_log, f)
+
+    #     with open(
+    #         os.path.join("logs/logfiles", trainer_s1.name, "validation_log.pkl"), "wb"
+    #     ) as f:
+    #         pickle.dump(validation_log, f)
+
+    #     with open(
+    #         os.path.join("logs/logfiles", trainer_s1.name, "grad_log1.pkl"), "wb"
+    #     ) as f:
+    #         pickle.dump(grad_log1, f)
+
+    #     with open(
+    #         os.path.join("logs/logfiles", trainer_s1.name, "grad_log2.pkl"), "wb"
+    #     ) as f:
+    #         pickle.dump(grad_log2, f)
+
+    #     with open(
+    #         os.path.join(
+    #             "logs/logfiles", trainer_s1.name, "notdropped_samples_bitvector.pkl"
+    #         ),
+    #         "wb",
+    #     ) as f:
+    #         pickle.dump(samples_bitvector, f)
+
     """
     S2
     """
@@ -259,22 +343,26 @@ if __name__ == "__main__":
     #     model_s1.load_state_dict(torch.load(s1_path)["model_state_dict"])
     #     print("model S1 loaded from {}".format(s1_path))
 
-    if bitvector_path is not None:
-        with open(bitvector_path, "rb") as f:
-            samples_bitvector = pickle.load(f)
-            print("Bitvector loaded from {}".format(bitvector_path))
-    else:
-        samples_bitvector = None
+    # if bitvector_path is not None:
+    #     with open(bitvector_path, "rb") as f:
+    #         samples_bitvector = pickle.load(f)
+    #         print("Bitvector loaded from {}".format(bitvector_path))
+
+    for i in range(len(teacher_models)):
+        teacher_models[i].final_activation = False
+    for i in range(len(model_s1s)):
+        model_s1s[i].final_activation = False
 
     # for params in model_s1.parameters():
     #     params.requires_grad = False
 
     # model_s1.eval()
 
+    model_s2.final_activation = False
 
     trainer_s2 = PipelineS2(
         name=model_name,
-        model_s1=model_s1,
+        model_s1s=model_s1s,
         model_s2=model_s2,
         batch_size=256,
         workers=num_workers,
@@ -282,7 +370,7 @@ if __name__ == "__main__":
         test_sets=score_sets,
         preprocessor=preprocessor,
         log_files_path="logs/fit/",
-        teacher_model=teacher_model,
+        teacher_models=teacher_models,
         cuda_num=cuda_num,
     )
 
@@ -295,13 +383,13 @@ if __name__ == "__main__":
         else (num_epochs - e) / (num_epochs * 0.85)
     )
 
-    loss_func_with_grad = torch.nn.KLDivLoss(reduction="batchmean", log_target=True)
-    loss_func = partial(
-        torch.nn.functional.kl_div, reduction="batchmean", log_target=True
-    )
+    # loss_func_with_grad = torch.nn.KLDivLoss(reduction="batchmean", log_target=True)
+    # loss_func = partial(
+    #     torch.nn.functional.kl_div, reduction="batchmean", log_target=True
+    # )
 
-    if samples_bitvector is not None:
-        samples_bitvector[:] = samples_bitvector == 0
+    loss_func_with_grad = torch.nn.MSELoss()
+    loss_func = torch.nn.functional.mse_loss
 
     (
         training_log,
@@ -321,7 +409,6 @@ if __name__ == "__main__":
         # save_checkpoints_epoch=25,
         # save_checkpoints_path="../../saved_models/",
         validation_score_epoch=5,
-        samples_bitvector=samples_bitvector,
     )
 
     save_path = trainer_s2.save(save_dir, num_epochs)

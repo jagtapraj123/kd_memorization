@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_multi_teachers
+
+# python testing.py < train_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students_save_path.txt > test_scratch_res18_fullsets_two_students_test_low_train.log
+# python testing.py < model_save_path.txt > runlog_teacher_all_train_set_0.8-1_low_train.log
+
+# python testing.py "train_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students2" "test_set" "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_scratch_res18_reduced_by8_0-1_dropped_0.1_two_students_high_train.log &
+
+python testing.py "testing_kd_red4_res18_red4" "all_score_sets" "$(< saved_model_s1_s2_red4.txt)" --cuda-num 0 --num-workers 4 --reduce 4 > testlog_testing_kd_red4_res18_red4.log &
+python testing.py "testing_kd_red4_res18_red8" "all_score_sets" "$(< saved_model_s1_s2_red8.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_testing_kd_red4_res18_red8.log &
+
+# python testing.py "train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students2" "test_set" "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_scratch_res18_reduced_by8_0-1_dropped_0.3_two_students_high_train.log &
+
+# python testing.py "train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students2" "test_set" "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_scratch_res18_reduced_by8_0-1_dropped_0.4_two_students_high_train.log &
+
+# python testing.py "train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students2" "test_set" "$(< train_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 > testlog_scratch_res18_reduced_by8_0-1_dropped_0.5_two_students_high_train.log &
+
+
+wait < <(jobs -p)

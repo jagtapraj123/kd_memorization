@@ -214,6 +214,14 @@ class ResNet(nn.Module):
 
         return x
 
+    def rep_to_class(self, x):
+        x = self.fc(x)
+        x /= self.temperature
+
+        if self.final_activation:
+            x = self.final_act(x)
+
+        return x
 
 def resnet50(**kwargs):
     """Constructs a ResNet-50 model."""

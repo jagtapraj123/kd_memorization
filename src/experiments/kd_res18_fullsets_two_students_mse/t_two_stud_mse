@@ -1,0 +1,67 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/kd_res18_fullsets_two_students_mse
+
+nvidia-smi
+lscpu
+
+# Finding Grads per sample
+# python train_resnet18.py "train_kd_res18_two_students_mse_0-1_dropped_0.2_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 1 --drop 0.2 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_two_students_mse_0-1_dropped_0.2_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 2 --drop 0.2 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 4 --drop 0.2 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.1 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 --soft_temp 8 > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling.log &
+
+
+# S2
+# python train_resnet18.py "train_kd_res18_two_students_mse_0-1_dropped_0.2_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 1 --drop 0.2 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_two_students_mse_0-1_dropped_0.2_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_two_students_mse_0-1_dropped_0.2_scaling_s1_20231024-024144/notdropped_samples_bitvector.pkl" > runlog_kd_res18_two_students_mse_0-1_dropped_0.2_scaling_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 2 --drop 0.2 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling_s1_20231024-024144/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by2_two_students_mse_0-1_dropped_0.2_scaling_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 4 --drop 0.2 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling_s1_20231024-023954/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by4_two_students_mse_0-1_dropped_0.2_scaling_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.1 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling_s1_20231024-023954/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.1_scaling_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.2 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling_s1_20231024-023553/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.2_scaling_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.3 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling_s1_20231024-023552/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.3_scaling_s2.log &
+
+python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling_s1_20231024-023351/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_scaling_s2.log &
+
+python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling_s1_20231024-023350/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_scaling_s2.log &
+
+
+
+# S2
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.4 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_s1_20230418-224625/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.4_s2.log &
+
+# python train_resnet18.py "train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_s2" "../../../dataset/scratch_fullsets/subset_0-1.csv" "temp" "$(< model_save_path.txt)" --cuda-num 0 --num-workers 4 --reduce 8 --drop 0.5 --drop_epoch 30 --soft_temp 8 --s1_path "$(< train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_save_path.txt)" --bitvector_path "logs/logfiles/train_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_s1_20230418-224625/notdropped_samples_bitvector.pkl" > runlog_kd_res18_reduced_by8_two_students_mse_0-1_dropped_0.5_s2.log &
+
+
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
